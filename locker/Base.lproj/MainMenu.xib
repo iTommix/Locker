@@ -14,12 +14,13 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="locker" customModuleProvider="target">
             <connections>
+                <outlet property="lockModeMenu" destination="bfK-Sq-RSK" id="tJt-uA-pTi"/>
                 <outlet property="mQuit" destination="Tel-QD-uhH" id="ooG-nb-uZd"/>
                 <outlet property="mRssi" destination="whS-fN-W4X" id="Pu9-AK-Tl9"/>
-                <outlet property="macAddress" destination="9of-7V-IEB" id="G22-OG-5ZS"/>
-                <outlet property="password" destination="T0f-mb-o7X" id="dr2-Zw-khU"/>
+                <outlet property="macAddress" destination="GLM-6L-6JS" id="n5F-ZI-hmq"/>
+                <outlet property="password" destination="Wvp-MM-Nej" id="4Pl-hr-234"/>
                 <outlet property="rssiLock" destination="mzX-NI-qQf" id="xye-O1-4wX"/>
-                <outlet property="setup" destination="RgK-uG-Jj5" id="GpM-ea-v0a"/>
+                <outlet property="rssiUnlock" destination="aoW-JZ-LFk" id="eoo-V0-8Zs"/>
                 <outlet property="statusMenu" destination="jJ5-qN-KZk" id="LkU-un-Mhb"/>
             </connections>
         </customObject>
@@ -30,15 +31,58 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="pw8-6i-dIp"/>
-                <menuItem title="Setup" keyEquivalent="s" id="5xy-Qt-Fiq">
+                <menuItem title="Setup" id="dbl-XX-5e3">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="sAction:" target="Voe-Tx-rLC" id="Qeq-QF-hLv"/>
-                    </connections>
+                    <menu key="submenu" title="Setup" id="7Vj-3n-dQF">
+                        <items>
+                            <menuItem title="Password" id="3MU-zP-u99">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <outlet property="view" destination="jm5-Im-eCU" id="4ZR-JL-js8"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="ncM-h3-E0t"/>
+                            <menuItem title="Mac-Address" id="L28-cZ-6hn">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <outlet property="view" destination="pGK-Xx-TJH" id="Gqd-ew-ACE"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Automatische Sperre" id="5OI-Ql-Xjo">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Automatische Sperre" id="bfK-Sq-RSK">
+                        <items>
+                            <menuItem title="Aus" alternate="YES" id="pAi-Kc-XgX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="lockOff:" target="Voe-Tx-rLC" id="bln-ND-6jT"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Sperren" id="hJo-WB-nym">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="lockLock:" target="Voe-Tx-rLC" id="o0Z-Gw-vlg"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Bildschirmschoner" id="J5R-gg-cGq">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="lockSaver:" target="Voe-Tx-rLC" id="VaJ-UQ-ExO"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
                 <menuItem title="Sperren ab" id="Kng-0J-JkT">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Sperren ab" id="mzX-NI-qQf"/>
+                </menuItem>
+                <menuItem title="Entsperren ab" id="Sem-fv-lmJ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Entsperren ab" id="aoW-JZ-LFk"/>
                 </menuItem>
                 <menuItem title="Quit" keyEquivalent="q" id="Tel-QD-uhH">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -49,71 +93,34 @@
             </items>
             <point key="canvasLocation" x="138.5" y="145.5"/>
         </menu>
-        <window title="Locker Setup" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="RgK-uG-Jj5">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="207" width="305" height="185"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-            <view key="contentView" id="Dne-ke-D8m">
-                <rect key="frame" x="0.0" y="0.0" width="305" height="185"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZMY-ZG-gy1">
-                        <rect key="frame" x="10" y="115" width="140" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Device MAC-Adresse :" id="EAE-2r-BMG">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9of-7V-IEB">
-                        <rect key="frame" x="164" y="116" width="132" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="xx-xx-xx-xx-xx-xx" drawsBackground="YES" id="uAS-vr-LIu">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bME-VR-Saj">
-                        <rect key="frame" x="10" y="86" width="140" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Passwort :" id="9qX-pa-osx">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T0f-mb-o7X">
-                        <rect key="frame" x="164" y="87" width="132" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="ifo-KC-llg">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            <allowedInputSourceLocales>
-                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                            </allowedInputSourceLocales>
-                        </secureTextFieldCell>
-                    </secureTextField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s29-ZC-bCP">
-                        <rect key="frame" x="126" y="24" width="90" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zp0-RS-2C6">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="closeSetup:" target="Voe-Tx-rLC" id="i17-w7-a8u"/>
-                        </connections>
-                    </button>
-                </subviews>
-            </view>
-            <point key="canvasLocation" x="264.5" y="-307.5"/>
-        </window>
+        <secureTextField verticalHuggingPriority="750" id="jm5-Im-eCU">
+            <rect key="frame" x="0.0" y="0.0" width="164" height="22"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" usesSingleLineMode="YES" id="Wvp-MM-Nej">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                <allowedInputSourceLocales>
+                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                </allowedInputSourceLocales>
+                <connections>
+                    <action selector="passwordChanged:" target="Voe-Tx-rLC" id="1cm-gc-Jb8"/>
+                </connections>
+            </secureTextFieldCell>
+            <point key="canvasLocation" x="474" y="73"/>
+        </secureTextField>
+        <textField verticalHuggingPriority="750" id="pGK-Xx-TJH">
+            <rect key="frame" x="0.0" y="0.0" width="164" height="22"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Mac-Adresse" drawsBackground="YES" id="GLM-6L-6JS">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                <connections>
+                    <action selector="macAddressChanged:" target="Voe-Tx-rLC" id="uKx-Tq-gaY"/>
+                </connections>
+            </textFieldCell>
+            <point key="canvasLocation" x="474" y="197"/>
+        </textField>
     </objects>
 </document>
