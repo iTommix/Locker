@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -8,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+                <outlet property="macAddress" destination="SIW-Rv-qWH" id="Xol-Cx-2FZ"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -17,8 +19,8 @@
                 <outlet property="lockModeMenu" destination="bfK-Sq-RSK" id="tJt-uA-pTi"/>
                 <outlet property="mQuit" destination="Tel-QD-uhH" id="ooG-nb-uZd"/>
                 <outlet property="mRssi" destination="whS-fN-W4X" id="Pu9-AK-Tl9"/>
-                <outlet property="macAddress" destination="GLM-6L-6JS" id="n5F-ZI-hmq"/>
-                <outlet property="password" destination="Wvp-MM-Nej" id="4Pl-hr-234"/>
+                <outlet property="macAddress" destination="ok8-3r-kEq" id="b63-BX-BR5"/>
+                <outlet property="password" destination="mm4-ol-gNa" id="0OO-Ee-izU"/>
                 <outlet property="rssiLock" destination="mzX-NI-qQf" id="xye-O1-4wX"/>
                 <outlet property="rssiUnlock" destination="aoW-JZ-LFk" id="eoo-V0-8Zs"/>
                 <outlet property="statusMenu" destination="jJ5-qN-KZk" id="LkU-un-Mhb"/>
@@ -38,14 +40,14 @@
                             <menuItem title="Password" id="3MU-zP-u99">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <outlet property="view" destination="jm5-Im-eCU" id="4ZR-JL-js8"/>
+                                    <outlet property="view" destination="C4v-Xy-OPC" id="8EL-ax-zu5"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="ncM-h3-E0t"/>
                             <menuItem title="Mac-Address" id="L28-cZ-6hn">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <outlet property="view" destination="pGK-Xx-TJH" id="Gqd-ew-ACE"/>
+                                    <outlet property="view" destination="dn4-Xc-QdP" id="tX7-SW-1MV"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -93,34 +95,64 @@
             </items>
             <point key="canvasLocation" x="138.5" y="145.5"/>
         </menu>
-        <secureTextField verticalHuggingPriority="750" id="jm5-Im-eCU">
-            <rect key="frame" x="0.0" y="0.0" width="164" height="22"/>
+        <customView id="dn4-Xc-QdP">
+            <rect key="frame" x="0.0" y="0.0" width="178" height="52"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" usesSingleLineMode="YES" id="Wvp-MM-Nej">
-                <font key="font" metaFont="system"/>
-                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                <allowedInputSourceLocales>
-                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                </allowedInputSourceLocales>
-                <connections>
-                    <action selector="passwordChanged:" target="Voe-Tx-rLC" id="1cm-gc-Jb8"/>
-                </connections>
-            </secureTextFieldCell>
-            <point key="canvasLocation" x="474" y="73"/>
-        </secureTextField>
-        <textField verticalHuggingPriority="750" id="pGK-Xx-TJH">
-            <rect key="frame" x="0.0" y="0.0" width="164" height="22"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ok8-3r-kEq">
+                    <rect key="frame" x="7" y="7" width="164" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Mac-Adresse" drawsBackground="YES" id="SIW-Rv-qWH">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <connections>
+                            <action selector="macAddressChanged:" target="Voe-Tx-rLC" id="Dpx-Qs-rdx"/>
+                        </connections>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VFN-hf-GX3">
+                    <rect key="frame" x="7" y="35" width="85" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Mac-Adresse" id="sFV-Va-lCi">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="490" y="231"/>
+        </customView>
+        <customView id="C4v-Xy-OPC">
+            <rect key="frame" x="0.0" y="0.0" width="178" height="52"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Mac-Adresse" drawsBackground="YES" id="GLM-6L-6JS">
-                <font key="font" metaFont="system"/>
-                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                <connections>
-                    <action selector="macAddressChanged:" target="Voe-Tx-rLC" id="uKx-Tq-gaY"/>
-                </connections>
-            </textFieldCell>
-            <point key="canvasLocation" x="474" y="197"/>
-        </textField>
+            <subviews>
+                <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsL-bg-8Gn">
+                    <rect key="frame" x="7" y="7" width="164" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" usesSingleLineMode="YES" id="mm4-ol-gNa">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <allowedInputSourceLocales>
+                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                        </allowedInputSourceLocales>
+                        <connections>
+                            <action selector="passwordChanged:" target="Voe-Tx-rLC" id="b4G-Af-tAA"/>
+                        </connections>
+                    </secureTextFieldCell>
+                </secureTextField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ijx-t5-Qcu">
+                    <rect key="frame" x="7" y="35" width="116" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Passwort:" id="03f-Ff-7Z8">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="488" y="27"/>
+        </customView>
     </objects>
 </document>

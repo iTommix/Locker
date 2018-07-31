@@ -11,6 +11,11 @@
 		E90A3FE820F7614500E98DB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E90A3FE720F7614500E98DB7 /* Assets.xcassets */; };
 		E90A3FEB20F7614500E98DB7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A3FE920F7614500E98DB7 /* MainMenu.xib */; };
 		E90A3FF620F77B0000E98DB7 /* Keymap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90A3FF520F77B0000E98DB7 /* Keymap.swift */; };
+		E913146C210B66ED00FB9C70 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E913146B210B66ED00FB9C70 /* AppDelegate.swift */; };
+		E913146E210B66ED00FB9C70 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E913146D210B66ED00FB9C70 /* ViewController.swift */; };
+		E9131471210B66ED00FB9C70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E913146F210B66ED00FB9C70 /* Main.storyboard */; };
+		E9131473210B66EF00FB9C70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9131472210B66EF00FB9C70 /* Assets.xcassets */; };
+		E9131476210B66EF00FB9C70 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9131474210B66EF00FB9C70 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,10 +26,24 @@
 		E90A3FEC20F7614500E98DB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E90A3FED20F7614500E98DB7 /* locker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = locker.entitlements; sourceTree = "<group>"; };
 		E90A3FF520F77B0000E98DB7 /* Keymap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keymap.swift; sourceTree = "<group>"; };
+		E9131469210B66ED00FB9C70 /* Lockerphone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lockerphone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E913146B210B66ED00FB9C70 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E913146D210B66ED00FB9C70 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E9131470210B66ED00FB9C70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E9131472210B66EF00FB9C70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E9131475210B66EF00FB9C70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E9131477210B66EF00FB9C70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E90A3FDF20F7614400E98DB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9131466210B66ED00FB9C70 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -38,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				E90A3FE420F7614400E98DB7 /* locker */,
+				E913146A210B66ED00FB9C70 /* Lockerphone */,
 				E90A3FE320F7614400E98DB7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				E90A3FE220F7614400E98DB7 /* locker.app */,
+				E9131469210B66ED00FB9C70 /* Lockerphone.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +82,19 @@
 				E90A3FF520F77B0000E98DB7 /* Keymap.swift */,
 			);
 			path = locker;
+			sourceTree = "<group>";
+		};
+		E913146A210B66ED00FB9C70 /* Lockerphone */ = {
+			isa = PBXGroup;
+			children = (
+				E913146B210B66ED00FB9C70 /* AppDelegate.swift */,
+				E913146D210B66ED00FB9C70 /* ViewController.swift */,
+				E913146F210B66ED00FB9C70 /* Main.storyboard */,
+				E9131472210B66EF00FB9C70 /* Assets.xcassets */,
+				E9131474210B66EF00FB9C70 /* LaunchScreen.storyboard */,
+				E9131477210B66EF00FB9C70 /* Info.plist */,
+			);
+			path = Lockerphone;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +117,23 @@
 			productReference = E90A3FE220F7614400E98DB7 /* locker.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E9131468210B66ED00FB9C70 /* Lockerphone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E913147A210B66EF00FB9C70 /* Build configuration list for PBXNativeTarget "Lockerphone" */;
+			buildPhases = (
+				E9131465210B66ED00FB9C70 /* Sources */,
+				E9131466210B66ED00FB9C70 /* Frameworks */,
+				E9131467210B66ED00FB9C70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lockerphone;
+			productName = Lockerphone;
+			productReference = E9131469210B66ED00FB9C70 /* Lockerphone.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -98,6 +149,14 @@
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
+							};
+						};
+					};
+					E9131468210B66ED00FB9C70 = {
+						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
 							};
 						};
 					};
@@ -117,6 +176,7 @@
 			projectRoot = "";
 			targets = (
 				E90A3FE120F7614400E98DB7 /* locker */,
+				E9131468210B66ED00FB9C70 /* Lockerphone */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +188,16 @@
 			files = (
 				E90A3FE820F7614500E98DB7 /* Assets.xcassets in Resources */,
 				E90A3FEB20F7614500E98DB7 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9131467210B66ED00FB9C70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9131476210B66EF00FB9C70 /* LaunchScreen.storyboard in Resources */,
+				E9131473210B66EF00FB9C70 /* Assets.xcassets in Resources */,
+				E9131471210B66ED00FB9C70 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +213,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E9131465210B66ED00FB9C70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E913146E210B66ED00FB9C70 /* ViewController.swift in Sources */,
+				E913146C210B66ED00FB9C70 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -152,6 +231,22 @@
 				E90A3FEA20F7614500E98DB7 /* Base */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		E913146F210B66ED00FB9C70 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9131470210B66ED00FB9C70 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E9131474210B66EF00FB9C70 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9131475210B66EF00FB9C70 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -282,6 +377,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = outraxx.de.locker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -300,9 +396,53 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = outraxx.de.locker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		E9131478210B66EF00FB9C70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E3QRUJBWAG;
+				INFOPLIST_FILE = Lockerphone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = outraxx.de.Lockerphone;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E9131479210B66EF00FB9C70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = E3QRUJBWAG;
+				INFOPLIST_FILE = Lockerphone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = outraxx.de.Lockerphone;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -323,6 +463,15 @@
 			buildConfigurations = (
 				E90A3FF120F7614500E98DB7 /* Debug */,
 				E90A3FF220F7614500E98DB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E913147A210B66EF00FB9C70 /* Build configuration list for PBXNativeTarget "Lockerphone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9131478210B66EF00FB9C70 /* Debug */,
+				E9131479210B66EF00FB9C70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

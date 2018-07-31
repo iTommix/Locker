@@ -22,7 +22,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var password: NSSecureTextFieldCell!
     @IBOutlet weak var macAddress: NSTextFieldCell!
     
-    
     @IBOutlet weak var rssiLock: NSMenu!
     @IBOutlet weak var rssiUnlock: NSMenu!
     
