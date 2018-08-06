@@ -38,6 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var locked = false
     var ready = false
     var manualUnlock = false
+    var menuOpen = false
     
     /* Default Values */
     var lockMode = 0 // 0=off, 1=lock, 2=Screensaver
@@ -45,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var unlockValue = -65
     var address = ""
     var unlockPassword = ""
+    
     
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -69,9 +71,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         statusItem.menu = statusMenu
         statusMenu.delegate = self
-        
         loadData()
         buildUnlockMenu()
+        
+        
+        
+
+        
+        
+        
+        
 
         if !self.macAddress.stringValue.isEmpty && !self.password.stringValue.isEmpty {
             self.ready = true
@@ -81,69 +90,72 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print("This is run on the background queue")
             // Get the Device
             if self.ready==true {
-                
                 guard let bluetoothDevice = IOBluetoothDevice(addressString: self.address) else {
                     print("Device not found")
                     return
                 }
                 while 1==1 {
-                    if bluetoothDevice.isConnected()==false {
-                        //print("Device not connected")
-                        bluetoothDevice.openConnection()
-                    }
-                    else {
-                        self.rssi = Int(bluetoothDevice.rawRSSI())
-                        if self.rssi<0 {
-                            if self.rssi < self.lockValue {
-                                self.counter=self.counter+1
-                                if self.counter==10 {
-                                    self.canLock=true
-                                    self.canunlock=false
+                    if !self.menuOpen {
+                        print(self.menuOpen)
+                        sleep(1)
+                        if bluetoothDevice.isConnected()==false {
+                            //print("Device not connected")
+                            bluetoothDevice.openConnection()
+                        }
+                        else {
+                            self.rssi = Int(bluetoothDevice.rawRSSI())
+                            if self.rssi<0 {
+                                if self.rssi < self.lockValue {
+                                    self.counter=self.counter+1
+                                    if self.counter==10 {
+                                        self.canLock=true
+                                        self.canunlock=false
+                                    }
+                                }
+                                else if self.rssi >= self.unlockValue {
+                                    self.counter=0
+                                    self.canLock=false
+                                    self.canunlock=true
                                 }
                             }
-                            else if self.rssi >= self.unlockValue {
-                                self.counter=0
-                                self.canLock=false
-                                self.canunlock=true
+                            /*
+                             print(self.average)
+                             print("\(self.rssi) => \(self.lockValue) => \(self.unlockValue)")
+                             print(self.canLock)
+                             print("-----------------")
+                             print(self.rssi)
+                             sleep(1)
+                             
+                             
+                             print("\(self.rssi) => \(self.locked) => \(self.manualUnlock) => \(self.canLock) => \(self.canunlock)")
+                             sleep(1)
+                             */
+                            
+                            if self.canLock {
+                                if self.locked==false && self.manualUnlock==false{
+                                    print("LOCK")
+                                    self.getOutRangeScript()
+                                    self.locked=true
+                                    sleep(3)
+                                }
                             }
-                        }
-                        /*
-                         print(self.average)
-                         print("\(self.rssi) => \(self.lockValue) => \(self.unlockValue)")
-                         print(self.canLock)
-                         print("-----------------")
-                         print(self.rssi)
-                         sleep(1)
-                         
-                         
-                         print("\(self.rssi) => \(self.locked) => \(self.manualUnlock) => \(self.canLock) => \(self.canunlock)")
-                         sleep(1)
-                         */
-                        
-                        if self.canLock {
-                            if self.locked==false && self.manualUnlock==false{
-                                print("LOCK")
-                                self.getOutRangeScript()
-                                self.locked=true
-                                sleep(3)
-                            }
-                        }
-                        else if self.canunlock {
-                            if self.locked==true && !self.manualUnlock {
-                                print("UNLOCK")
-                                if self.lockMode==2 {
+                            else if self.canunlock {
+                                if self.locked==true && !self.manualUnlock {
+                                    print("UNLOCK")
+                                    if self.lockMode==2 {
+                                        keysend(0x24, useCommandFlag: false)
+                                        sleep(1)
+                                    }
+                                    for i in self.unlockPassword {
+                                        keysend(keymap[i]!, useCommandFlag: false)
+                                    }
                                     keysend(0x24, useCommandFlag: false)
-                                    sleep(1)
+                                    self.locked=false
+                                    sleep(3)
                                 }
-                                for i in self.unlockPassword {
-                                    keysend(keymap[i]!, useCommandFlag: false)
+                                else {
+                                    self.manualUnlock = false
                                 }
-                                keysend(0x24, useCommandFlag: false)
-                                self.locked=false
-                                sleep(3)
-                            }
-                            else {
-                                self.manualUnlock = false
                             }
                         }
                     }
@@ -338,8 +350,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         NSApplication.shared.activate(ignoringOtherApps: true)
+        self.menuOpen = true
+        sleep(1)
+        var btDelegate = BlueDelegate()
+        var ibdi = IOBluetoothDeviceInquiry(delegate: btDelegate)
+        ibdi?.updateNewDeviceNames = true
+        //ibdi?.start()
+    }
+    
+    func menuDidClose(_ menu: NSMenu) {
+        self.menuOpen = false
     }
 }
 
+class BlueDelegate : IOBluetoothDeviceInquiryDelegate {
+    func deviceInquiryStarted(_ sender: IOBluetoothDeviceInquiry) {
+        print("Inquiry Started...")
+    }
+    func deviceInquiryDeviceFound(_ sender: IOBluetoothDeviceInquiry, device: IOBluetoothDevice) {
+        print("\(device.addressString!)")
+    }
+}
 
 
