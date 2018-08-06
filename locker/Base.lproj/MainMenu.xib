@@ -9,7 +9,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
-                <outlet property="macAddress" destination="SIW-Rv-qWH" id="Xol-Cx-2FZ"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -19,7 +18,7 @@
                 <outlet property="lockModeMenu" destination="bfK-Sq-RSK" id="tJt-uA-pTi"/>
                 <outlet property="mQuit" destination="Tel-QD-uhH" id="ooG-nb-uZd"/>
                 <outlet property="mRssi" destination="whS-fN-W4X" id="Pu9-AK-Tl9"/>
-                <outlet property="macAddress" destination="ok8-3r-kEq" id="b63-BX-BR5"/>
+                <outlet property="macAddress" destination="SIW-Rv-qWH" id="4s6-th-34K"/>
                 <outlet property="password" destination="mm4-ol-gNa" id="0OO-Ee-izU"/>
                 <outlet property="rssiLock" destination="mzX-NI-qQf" id="xye-O1-4wX"/>
                 <outlet property="rssiUnlock" destination="aoW-JZ-LFk" id="eoo-V0-8Zs"/>
@@ -93,7 +92,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="138.5" y="145.5"/>
+            <point key="canvasLocation" x="268" y="135"/>
         </menu>
         <customView id="dn4-Xc-QdP">
             <rect key="frame" x="0.0" y="0.0" width="178" height="52"/>

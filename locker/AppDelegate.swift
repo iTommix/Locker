@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var rssiLock: NSMenu!
     @IBOutlet weak var rssiUnlock: NSMenu!
     
-    let statusItem = NSStatusBar.system.statusItem(withLength: -1)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     let defaults = UserDefaults.standard
 
     var counter = 0
@@ -49,6 +49,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+       
+        //self.macAddress.sendAction(on: [.leftMouseDown])
+        //self.macAddress.action = #selector(setMacInput)
         
         let center = DistributedNotificationCenter.default()
         center.addObserver(self, selector: #selector(AppDelegate.screenLocked), name: NSNotification.Name(rawValue: "com.apple.screenIsLocked"), object: nil)
@@ -60,14 +63,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             editMenuItem.action = #selector(setLockRssi(_:))
             rssiLock.addItem(editMenuItem)
         }
-        
+
         if let button = statusItem.button {
             button.image = NSImage(named:NSImage.Name("lock"))
-            //button.action = #selector(AppDelegate.displayRSSI(_:))
-            //button.sendAction(on: [.leftMouseUp, .rightMouseUp])
-            //button.target = self
         }
         statusItem.menu = statusMenu
+        statusMenu.delegate = self
+        
         loadData()
         buildUnlockMenu()
 
@@ -106,17 +108,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             }
                         }
                         /*
-                        print(self.average)
-                        print("\(self.rssi) => \(self.lockValue) => \(self.unlockValue)")
-                        print(self.canLock)
-                        print("-----------------")
-                        print(self.rssi)
-                        sleep(1)
- 
-
-                        print("\(self.rssi) => \(self.locked) => \(self.manualUnlock) => \(self.canLock) => \(self.canunlock)")
-                        sleep(1)
-                        */
+                         print(self.average)
+                         print("\(self.rssi) => \(self.lockValue) => \(self.unlockValue)")
+                         print(self.canLock)
+                         print("-----------------")
+                         print(self.rssi)
+                         sleep(1)
+                         
+                         
+                         print("\(self.rssi) => \(self.locked) => \(self.manualUnlock) => \(self.canLock) => \(self.canunlock)")
+                         sleep(1)
+                         */
                         
                         if self.canLock {
                             if self.locked==false && self.manualUnlock==false{
@@ -149,7 +151,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    
 
+    
     func buildUnlockMenu() {
         rssiUnlock.removeAllItems()
         let start=abs(Int(self.lockValue))-5
@@ -190,6 +194,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         return
     }
+    
+
     
     func getInRangeScript() {
         if self.lockMode>0 {
@@ -252,6 +258,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func qAction(_ sender: Any) {
         NSApplication.shared.terminate(self)
     }
+    
+    
     
     @IBAction func passwordChanged(_ sender: NSSecureTextFieldCell) {
         self.ready=false
@@ -327,7 +335,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 }
 
-
+extension AppDelegate: NSMenuDelegate {
+    func menuWillOpen(_ menu: NSMenu) {
+        NSApplication.shared.activate(ignoringOtherApps: true)
+    }
+}
 
 
 
