@@ -33,6 +33,7 @@
 		E9131472210B66EF00FB9C70 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9131475210B66EF00FB9C70 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9131477210B66EF00FB9C70 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9D3E2D621186CEE000F1F54 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 				E90A3FEC20F7614500E98DB7 /* Info.plist */,
 				E90A3FED20F7614500E98DB7 /* locker.entitlements */,
 				E90A3FF520F77B0000E98DB7 /* Keymap.swift */,
+				E9D3E2D621186CEE000F1F54 /* README.md */,
 			);
 			path = locker;
 			sourceTree = "<group>";
