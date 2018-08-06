@@ -15,6 +15,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="locker" customModuleProvider="target">
             <connections>
+                <outlet property="debug" destination="RE2-h8-bAm" id="5vh-Ew-R7n"/>
                 <outlet property="lockModeMenu" destination="bfK-Sq-RSK" id="tJt-uA-pTi"/>
                 <outlet property="mQuit" destination="Tel-QD-uhH" id="ooG-nb-uZd"/>
                 <outlet property="mRssi" destination="whS-fN-W4X" id="Pu9-AK-Tl9"/>
@@ -47,6 +48,12 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <outlet property="view" destination="dn4-Xc-QdP" id="tX7-SW-1MV"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Debug-Mode" id="RE2-h8-bAm">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setDebugMode:" target="Voe-Tx-rLC" id="WDW-ix-GLs"/>
                                 </connections>
                             </menuItem>
                         </items>

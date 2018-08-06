@@ -18,6 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var setup: NSWindow!
     @IBOutlet weak var mQuit: NSMenuItem!
     @IBOutlet weak var lockModeMenu: NSMenu!
+    @IBOutlet weak var debug: NSMenuItem!
+    
     
     @IBOutlet weak var password: NSSecureTextFieldCell!
     @IBOutlet weak var macAddress: NSTextFieldCell!
@@ -27,6 +29,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     let defaults = UserDefaults.standard
+    let formatter = DateFormatter()
+    
 
     var counter = 0
     var rssi = 0
@@ -39,6 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var ready = false
     var manualUnlock = false
     var menuOpen = false
+    var debugMode = false
     
     /* Default Values */
     var lockMode = 0 // 0=off, 1=lock, 2=Screensaver
@@ -73,7 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusMenu.delegate = self
         loadData()
         buildUnlockMenu()
-        
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         
 
@@ -96,8 +101,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
                 while 1==1 {
                     if !self.menuOpen {
-                        print(self.menuOpen)
-                        sleep(1)
                         if bluetoothDevice.isConnected()==false {
                             //print("Device not connected")
                             bluetoothDevice.openConnection()
@@ -198,11 +201,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 "end tell \n"
                 var error: NSDictionary?
                 NSAppleScript(source: myAppleScript)?.executeAndReturnError(&error)
+                writeDebug("Device out of Range. Locking to Screensaver with RSSI " + String(self.rssi))
             }
             else {
                 self.shell("/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession", "-suspend")
+                writeDebug("Device out of Range. Locking to Lockscreen with RSSI " + String(self.rssi))
             }
-            
         }
         return
     }
@@ -221,18 +225,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 + "end run\n"
             var error: NSDictionary?
             NSAppleScript(source: myAppleScript)?.executeAndReturnError(&error)
+            writeDebug("Device in Range. Unlocking with RSSI " + String(self.rssi))
         }
         return
     }
     
     @objc func screenLocked(_ sender: Any) {
         print("Manual Lock")
+        writeDebug("Manual Lock initiated")
     }
    
     @objc func screenUnlocked(_ sender: Any) {
         print("Manual unlock")
         self.manualUnlock=true
         self.locked=false
+        writeDebug("Manual Unlock initiated")
     }
     
     @objc func displayRSSI() {
@@ -247,6 +254,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+    @IBAction func setDebugMode(_ sender: NSMenuItem?) {
+        sender?.state = sender?.state.rawValue==0 ? NSControl.StateValue.on : NSControl.StateValue.off
+    }
     
     @objc func setLockRssi(_ sender: NSMenuItem?) {
         let val = sender?.title.replacingOccurrences(of: " dBm", with: "")
@@ -256,6 +266,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.lockValue = Int(val!)!
         defaults.set(self.lockValue, forKey: "lock")
         buildUnlockMenu()
+        writeDebug("Lock-Value changed to " + String(self.lockValue))
     }
     
     @objc func setUnlockRssi(_ sender: NSMenuItem?) {
@@ -265,10 +276,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         checked?.state = NSControl.StateValue.off
         self.unlockValue = Int(val!)!
         defaults.set(self.unlockValue, forKey: "unlock")
+        writeDebug("Unlock-Value changed to " + String(self.unlockValue))
     }
     
     @IBAction func qAction(_ sender: Any) {
         NSApplication.shared.terminate(self)
+        writeDebug("App terminated")
     }
     
     
@@ -280,6 +293,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if !self.macAddress.stringValue.isEmpty && !self.password.stringValue.isEmpty {
             self.ready=true
         }
+        writeDebug("Password changed")
     }
     
     @IBAction func macAddressChanged(_ sender: NSTextFieldCell) {
@@ -289,6 +303,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if !self.macAddress.stringValue.isEmpty && !self.password.stringValue.isEmpty {
             self.ready=true
         }
+        writeDebug("Mac-Address changed")
     }
     
     @IBAction func lockOff(_ sender: NSMenuItem?) {
@@ -296,6 +311,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.lockMode = 0
         sender?.state = NSControl.StateValue.on
         defaults.set(self.lockMode, forKey: "lockMode")
+        writeDebug("Lock-Mode changed to OFF")
     }
     
     @IBAction func lockLock(_ sender: NSMenuItem?) {
@@ -303,6 +319,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.lockMode = 1
         sender?.state = NSControl.StateValue.on
         defaults.set(self.lockMode, forKey: "lockMode")
+        writeDebug("Lock-Mode changed to Lockscreen")
     }
     
     @IBAction func lockSaver(_ sender: NSMenuItem?) {
@@ -310,6 +327,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.lockMode = 2
         sender?.state = NSControl.StateValue.on
         defaults.set(self.lockMode, forKey: "lockMode")
+        writeDebug("Lock-Mode changed to Screensaver")
     }
     
     
@@ -345,15 +363,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         task.waitUntilExit()
     }
     
+    func writeDebug(_ text: String) {
+        let date = formatter.string(from: Date())
+        
+        if self.debug.state.rawValue==1 {
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let fileURL = dir.appendingPathComponent("locker_debug.txt")
+                var old = ""
+                do {
+                    old = try String(contentsOf: fileURL, encoding: .utf8)
+                }
+                catch {
+                    
+                }
+                let out = old + date + " : " + text + "\n"
+                
+                do {
+                    try out.write(to: fileURL, atomically: false, encoding: .utf8)
+                }
+                catch{
+                    print("Could not Write Debug")
+                }
+            }
+        }
+    }
+    
 }
 
 extension AppDelegate: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         NSApplication.shared.activate(ignoringOtherApps: true)
         self.menuOpen = true
-        sleep(1)
-        var btDelegate = BlueDelegate()
-        var ibdi = IOBluetoothDeviceInquiry(delegate: btDelegate)
+        let btDelegate = BlueDelegate()
+        let ibdi = IOBluetoothDeviceInquiry(delegate: btDelegate)
         ibdi?.updateNewDeviceNames = true
         //ibdi?.start()
     }
