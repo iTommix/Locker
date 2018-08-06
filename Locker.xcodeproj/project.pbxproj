@@ -57,6 +57,7 @@
 		E90A3FD920F7614400E98DB7 = {
 			isa = PBXGroup;
 			children = (
+				E9D3E2D621186CEE000F1F54 /* README.md */,
 				E90A3FE420F7614400E98DB7 /* locker */,
 				E913146A210B66ED00FB9C70 /* Lockerphone */,
 				E90A3FE320F7614400E98DB7 /* Products */,
@@ -81,7 +82,6 @@
 				E90A3FEC20F7614500E98DB7 /* Info.plist */,
 				E90A3FED20F7614500E98DB7 /* locker.entitlements */,
 				E90A3FF520F77B0000E98DB7 /* Keymap.swift */,
-				E9D3E2D621186CEE000F1F54 /* README.md */,
 			);
 			path = locker;
 			sourceTree = "<group>";
