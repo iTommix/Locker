@@ -50,7 +50,7 @@
                                     <outlet property="view" destination="dn4-Xc-QdP" id="tX7-SW-1MV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Debug-Mode" id="RE2-h8-bAm">
+                            <menuItem title="Debug-Mode" state="on" id="RE2-h8-bAm">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="setDebugMode:" target="Voe-Tx-rLC" id="WDW-ix-GLs"/>

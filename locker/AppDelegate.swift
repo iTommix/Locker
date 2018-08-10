@@ -43,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var ready = false
     var manualUnlock = false
     var menuOpen = false
-    var debugMode = false
+    var debugMode = true
     
     /* Default Values */
     var lockMode = 0 // 0=off, 1=lock, 2=Screensaver
@@ -63,6 +63,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let center = DistributedNotificationCenter.default()
         center.addObserver(self, selector: #selector(AppDelegate.screenLocked), name: NSNotification.Name(rawValue: "com.apple.screenIsLocked"), object: nil)
         center.addObserver(self, selector: #selector(AppDelegate.screenUnlocked), name: NSNotification.Name(rawValue: "com.apple.screenIsUnlocked"), object: nil)
+        center.addObserver(self, selector: #selector(AppDelegate.screenSaverStart), name: NSNotification.Name(rawValue: "com.apple.screensaver.didstart"), object: nil)
+        center.addObserver(self, selector: #selector(AppDelegate.screenSaverStop), name: NSNotification.Name(rawValue: "com.apple.screensaver.didstop"), object: nil)
         
         for i in stride(from: 100, to: 30, by: -5) {
             let editMenuItem = NSMenuItem()
@@ -144,7 +146,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             }
                             else if self.canunlock {
                                 if self.locked==true && !self.manualUnlock {
+                                    self.writeDebug("Device in Range. Unlocking with RSSI " + String(self.rssi))
                                     print("UNLOCK")
+                                    //self.shell("say", "-v", "Anna", "Willkommen zurück. Habe dich vermisst.")
                                     if self.lockMode==2 {
                                         keysend(0x24, useCommandFlag: false)
                                         sleep(1)
@@ -207,6 +211,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.shell("/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession", "-suspend")
                 writeDebug("Device out of Range. Locking to Lockscreen with RSSI " + String(self.rssi))
             }
+            //self.shell("say", "-v", "Anna", "Bis später, großer Meister")
         }
         return
     }
@@ -218,25 +223,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let myAppleScript = "on run\n"
                 //+ "tell application \"/System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\" to quit\n"
                 + "tell application \"System Events\" to keystroke return\n"
-                + "delay 2.0\n"
+                + "delay 1.0\n"
                 + "tell application \"System Events\" to keystroke \"" + (self.unlockPassword) + "\"\n"
                 + "delay 0.5\n"
                 + "tell application \"System Events\" to keystroke return\n"
                 + "end run\n"
             var error: NSDictionary?
             NSAppleScript(source: myAppleScript)?.executeAndReturnError(&error)
-            writeDebug("Device in Range. Unlocking with RSSI " + String(self.rssi))
         }
         return
     }
     
+    @objc func screenSaverStop(_ sender: Any) {
+        writeDebug("Screensaver stopped")
+    }
+    
+    @objc func screenSaverStart(_ sender: Any) {
+        writeDebug("Screensaver started")
+    }
+    
     @objc func screenLocked(_ sender: Any) {
-        print("Manual Lock")
         writeDebug("Manual Lock initiated")
     }
    
     @objc func screenUnlocked(_ sender: Any) {
-        print("Manual unlock")
         self.manualUnlock=true
         self.locked=false
         writeDebug("Manual Unlock initiated")
